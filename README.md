@@ -1,0 +1,4 @@
+magento
+=======
+
+Plugin for Magento
