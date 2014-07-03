@@ -11,7 +11,7 @@ class Mondido_Mondido_Block_Standard_Form extends Mage_Payment_Block_Form
     /**
      * Config model instance
      *
-     * @var Mage_Paypal_Model_Config
+     * @var Mage_Mondido_Model_Config
      */
     protected $_config;
 
@@ -28,7 +28,7 @@ class Mondido_Mondido_Block_Standard_Form extends Mage_Payment_Block_Form
             ->setRedirectMessage(
                 Mage::helper('mondido')->__('You will be redirected to the Mondido website when you place an order.')
             )
-            ->setMethodTitle('') // Output PayPal mark, omit title
+            ->setMethodTitle('') // Output Mondido mark, omit title
             ->setMethodLabelAfterHtml($mark->toHtml())
         ;
         return parent::_construct();

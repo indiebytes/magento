@@ -16,7 +16,7 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Config instance
-     * @var Mage_Paypal_Model_Config
+     * @var Mage_Mondido_Model_Config
      */
     protected $_config = null;
 
@@ -36,9 +36,9 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
 
     /**
-     * Get paypal session namespace
+     * Get mondido session namespace
      *
-     * @return Mage_Paypal_Model_Session
+     * @return Mage_Mondido_Model_Session
      */
     public function getSession()
     {

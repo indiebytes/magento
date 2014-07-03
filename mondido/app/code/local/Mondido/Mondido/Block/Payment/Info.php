@@ -19,13 +19,13 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    Mage
- * @package     Mage_Paypal
+ * @package     Mage_Mondido
  * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * PayPal common payment info block
+ * Mondido common payment info block
  * Uses default templates
  */
 class Mondido_Mondido_Block_Payment_Info extends Mage_Payment_Block_Info_Cc

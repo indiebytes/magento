@@ -31,9 +31,9 @@ class Mondido_Mondido_StandardController extends Mage_Core_Controller_Front_Acti
     }
 
     /**
-     * Get singleton with paypal strandard order transaction information
+     * Get singleton with mondido strandard order transaction information
      *
-     * @return Mage_Paypal_Model_Standard
+     * @return Mage_mondido_Model_Standard
      */
     public function getStandard()
     {
