@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <SongNguyen_Mondido>
+        <Mondido_Mondido>
             <!-- declare module's version information for database updates -->
             <version>0.1.0</version>
-        </SongNguyen_Mondido>
+        </Mondido_Mondido>
     </modules>
 
     <global>
         <!-- IMPORTANT: if you use your own namespace (i.e. CompanyName) you also have to declare blocks group for new module. See topic: http://www.magentocommerce.com/boards/viewthread/22416/#t102732 -->
         <blocks>
             <mondido>
-                <class>SongNguyen_Mondido_Block</class>
+                <class>Mondido_Mondido_Block</class>
             </mondido>
             <checkout>
                 <rewrite>
-                    <onepage_failure>SongNguyen_Mondido_Block_Onepage_Failure</onepage_failure>
+                    <onepage_failure>Mondido_Mondido_Block_Onepage_Failure</onepage_failure>
                 </rewrite>
             </checkout>
         </blocks>
@@ -25,13 +25,13 @@
             <!-- model group alias to be used in Mage::getModel('mondido/...') -->
             <mondido>
                 <!-- base class name for the model group -->
-                <class>SongNguyen_Mondido_Model</class>
+                <class>Mondido_Mondido_Model</class>
             </mondido>
         </models>
 
         <helpers>
             <mondido>
-                <class>SongNguyen_Mondido_Helper</class>
+                <class>Mondido_Mondido_Helper</class>
             </mondido>
         </helpers>
 
@@ -42,7 +42,7 @@
                 <!-- specify that this resource is a setup resource and used for upgrades -->
                 <setup>
                     <!-- which module to look for install/upgrade files in -->
-                    <module>SongNguyen_Mondido</module>
+                    <module>Mondido_Mondido</module>
                 </setup>
                 <!-- specify database connection for this resource -->
                 <connection>
@@ -68,7 +68,7 @@
             <mondido>
                 <use>standard</use>
                 <args>
-                    <module>SongNguyen_Mondido</module>
+                    <module>Mondido_Mondido</module>
                     <frontName>mondido</frontName>
                 </args>
             </mondido>

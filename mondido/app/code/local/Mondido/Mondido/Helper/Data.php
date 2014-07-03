@@ -1,6 +1,6 @@
 <?php
 
-class SongNguyen_Mondido_Helper_Data extends Mage_Core_Helper_Abstract
+class Mondido_Mondido_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
      * Return checkout session instance

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <SongNguyen_Mondido>
+        <Mondido_Mondido>
             <active>true</active>
             <codePool>local</codePool>
             <depends>
                 <Mage_Payment />
             </depends>
-        </SongNguyen_Mondido>
+        </Mondido_Mondido>
     </modules>
 </config>

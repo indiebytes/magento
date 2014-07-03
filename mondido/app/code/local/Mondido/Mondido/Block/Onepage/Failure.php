@@ -1,5 +1,5 @@
 <?php
-class SongNguyen_Mondido_Block_Onepage_Failure extends Mage_Core_Block_Template
+class Mondido_Mondido_Block_Onepage_Failure extends Mage_Core_Block_Template
 {
     public function getContinueShoppingUrl()
     {

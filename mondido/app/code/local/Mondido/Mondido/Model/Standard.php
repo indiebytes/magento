@@ -3,7 +3,7 @@
 /**
  * Our test CC module adapter
  */
-class SongNguyen_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
+class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
 {
     protected $_code  = 'mondido';
     protected $_isGateway = true;
@@ -114,6 +114,28 @@ class SongNguyen_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstra
         }
         $hash = md5($str);
 
+        $metadata = array();
+
+
+        $customer = Mage::getSingleton('customer/session')->getCustomer();
+        $cust = Mage::getModel('customer/customer')->load($customer->getId());
+        $customerData = $cust->getData();
+        $customerAddresses = $cust->getAddresses();
+        $customerAddress = "";
+        if(count($customerAddresses) > 0){
+            $customerAddress = array_shift(array_values($customerAddresses))->getData();
+        }
+        $customer = array("entity_id" => $customerData["entity_id"], "website_id" => $customerData["website_id"], "email" => $customerData["email"], "firstname" => $customerData["firstname"], "lastname" => $customerData["lastname"], "address" => $customerAddress);
+        $metadata['customer'] = $customer;
+        $metadata['order'] = $order->getData();
+        $prods = array();
+        $orderItems = $order->getItemsCollection();
+        foreach($orderItems as $sItem) {
+            $nProduct = Mage::getModel('catalog/product')->load($sItem->getProductId());
+            array_push($prods,$nProduct->getData());
+        }
+        $metadata['products'] = $prods;
+
         //Return Data
         $data = array(
             'merchant_id' => $merchant_id,
@@ -123,7 +145,8 @@ class SongNguyen_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstra
             'currency' => $currency,
             'secret' => $serect,
             'hash' => $hash,
-            'test' => $test_mode
+            'test' => $test_mode,
+            'metadata' => $metadata
         );
         return $data;
     }

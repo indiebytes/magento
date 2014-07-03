@@ -1,6 +1,6 @@
 <?php
 
-class SongNguyen_Mondido_Block_Standard_Form extends Mage_Payment_Block_Form
+class Mondido_Mondido_Block_Standard_Form extends Mage_Payment_Block_Form
 {
     /**
      * Payment method code

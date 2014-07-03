@@ -1,12 +1,13 @@
 <?php
 
-class SongNguyen_Mondido_Block_Standard_Redirect extends Mage_Core_Block_Abstract
+class Mondido_Mondido_Block_Standard_Redirect extends Mage_Core_Block_Abstract
 {
     protected function _toHtml()
     {
         $standard = Mage::getModel('mondido/standard');
-		$fields = $standard->getCheckoutFields();
-        $metadata = json_encode($fields);
+        $fields = $standard->getCheckoutFields();
+
+        $metadata = json_encode($fields['metadata']);
 
         $form = new Varien_Data_Form();
         $form->setAction('https://pay.mondido.com/v1/form')

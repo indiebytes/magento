@@ -28,7 +28,7 @@
  * PayPal common payment info block
  * Uses default templates
  */
-class SongNguyen_Mondido_Block_Payment_Info extends Mage_Payment_Block_Info_Cc
+class Mondido_Mondido_Block_Payment_Info extends Mage_Payment_Block_Info_Cc
 {
     /**
      * Don't show CC type for non-CC methods

@@ -1,5 +1,5 @@
 <?php
-class SongNguyen_Mondido_StandardController extends Mage_Core_Controller_Front_Action
+class Mondido_Mondido_StandardController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Order instance
