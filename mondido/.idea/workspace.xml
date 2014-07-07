@@ -4,13 +4,20 @@
     <bookmark url="file://$PROJECT_DIR$/app/code/local/Mondido/Mondido/Block/Standard/Redirect.php" line="9" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eda5d92a-a3ef-45d8-95b1-eecfbae245c1" name="Default" comment="" />
+    <list default="true" id="eda5d92a-a3ef-45d8-95b1-eecfbae245c1" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/code/local/Mondido/Mondido/etc/system.xml" afterPath="$PROJECT_DIR$/app/code/local/Mondido/Mondido/etc/system.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="mondido.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Redirect.php" changelist="eda5d92a-a3ef-45d8-95b1-eecfbae245c1" time="1404419154527" ignored="false" />
     <file path="/a.dummy" changelist="eda5d92a-a3ef-45d8-95b1-eecfbae245c1" time="1404423239790" ignored="false" />
     <file path="/Standard.php" changelist="eda5d92a-a3ef-45d8-95b1-eecfbae245c1" time="1404422771597" ignored="false" />
     <file path="/mark.phtml" changelist="eda5d92a-a3ef-45d8-95b1-eecfbae245c1" time="1404423427625" ignored="false" />
+    <file path="/Dummy.txt" changelist="eda5d92a-a3ef-45d8-95b1-eecfbae245c1" time="1404424014720" ignored="false" />
+    <file path="/system.xml" changelist="eda5d92a-a3ef-45d8-95b1-eecfbae245c1" time="1404463677052" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,10 +75,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mark.phtml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="mark.phtml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/design/frontend/base/default/template/mondido/payment/mark.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="60" selection-end="60" vertical-scroll-proportion="0.10688836">
+            <state line="3" column="0" selection-start="60" selection-end="60" vertical-scroll-proportion="-1.875">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="system.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/code/local/Mondido/Mondido/etc/system.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="60" selection-start="2259" selection-end="2259" vertical-scroll-proportion="0.7291667">
               <folding />
             </state>
           </provider>
@@ -84,6 +100,14 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
@@ -93,15 +117,17 @@
         <option value="$PROJECT_DIR$/app/code/local/Mondido/Mondido/controllers/StandardController.php" />
         <option value="$PROJECT_DIR$/app/code/local/Mondido/Mondido/Model/Standard.php" />
         <option value="$PROJECT_DIR$/app/design/frontend/base/default/template/mondido/payment/mark.phtml" />
+        <option value="$PROJECT_DIR$/app/code/local/Mondido/Mondido/etc/system.xml" />
       </list>
     </option>
   </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
     <option name="width" value="1440" />
     <option name="height" value="826" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -487,7 +513,8 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="options.lastSelected" value="File.Encoding" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="FullScreen" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
@@ -527,6 +554,23 @@
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="eda5d92a-a3ef-45d8-95b1-eecfbae245c1" name="Default" comment="" />
@@ -548,7 +592,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.66997164" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33002833" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -657,13 +701,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/code/local/Mondido/Mondido/etc/system.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/code/local/Mondido/Mondido/Block/Standard/Redirect.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="34" selection-start="1010" selection-end="1010" vertical-scroll-proportion="0.7446808">
@@ -703,7 +740,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/design/frontend/base/default/template/mondido/payment/mark.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="60" selection-end="60" vertical-scroll-proportion="0.10688836">
+        <state line="3" column="0" selection-start="60" selection-end="60" vertical-scroll-proportion="-1.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/code/local/Mondido/Mondido/etc/system.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="60" selection-start="2259" selection-end="2259" vertical-scroll-proportion="0.7291667">
           <folding />
         </state>
       </provider>
