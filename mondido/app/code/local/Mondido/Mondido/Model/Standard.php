@@ -106,12 +106,15 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
         if($test == 1) $test_mode = true;
         $currency = $order->getOrderCurrencyCode();
 
-        //Getnerate hash
-        if ($callback) {
-            $str = "" . $merchant_id . "" . $order_id . "" . $customer_id . "" . $amount . "" . strtolower($currency) . "" . strtolower($status) . "" . $serect . "";
-        } else {
-            $str = "" . $merchant_id . "" . $order_id . "" . $customer_id . "" . $amount . "" . $serect . "";
-        }
+        //Generate hash
+        $str = $merchant_id 
+            . $order_id 
+            . $customer_id 
+            . $amount 
+            . strtolower($currency) 
+            . ($test_mode ? "test" : "")
+            . $serect;
+
         $hash = md5($str);
 
         $metadata = array();
