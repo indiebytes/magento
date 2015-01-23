@@ -6,7 +6,7 @@ Version 1.0
 
 **Instructions**
 
-1. Run the setup script below. It copies the files from the downloaded module to their corresponding locations within your Magento installation.
+Run the setup script below. It copies the files from the downloaded module to their corresponding locations within your Magento installation.
 
 ```sh
 #!/bin/bash
