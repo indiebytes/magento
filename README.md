@@ -9,18 +9,18 @@ Version 1.0
 1. Run the setup script below. It copies the files from the downloaded module to their corresponding locations within your Magento installation.
 
 ```sh
-# cd <one folder before magento folder>
+#!/bin/bash
+magento_branch="magento-master"
 magento_dir="/var/www/magento"
 
-wget https://github.com/Mondido/magento/archive/master.zip
-unzip magento-master.zip
+wget https://github.com/Mondido/magento/archive/master.zip -O mondido.zip
+unzip mondido.zip
 
-mkdir magento/app/code/local/Mondido
-mv magento-master/mondido/app/code/local/Mondido $magento_dir/app/code/local/Mondido
-mv magento-master/mondido/app/design/frontend/base/default/template/mondido/ $magento_dir/app/design/frontend/base/default/template/
-mv magento-master/mondido/app/etc/modules/Mondido_Mondido.xml $magento_dir/app/etc/modules/
+mv $magento_branch/mondido/app/code/local/Mondido $magento_dir/app/code/local/
+mv $magento_branch/mondido/app/design/frontend/base/default/template/mondido/ $magento_dir/app/design/frontend/base/default/template/
+mv $magento_branch/mondido/app/etc/modules/Mondido_Mondido.xml $magento_dir/app/etc/modules/
 
-rm -rf magento-master
+rm -rf $magento_branch
 ```
 
 In order to make the module "LIVE", follow the instructions below:  
