@@ -23,7 +23,7 @@ class Mondido_Mondido_Block_Standard_Redirect extends Mage_Core_Block_Abstract
         $form->addField('merchant_id', 'hidden', array('name'=>'merchant_id', 'value' => $fields['merchant_id']));
         $form->addField('success_url', 'hidden', array('name'=>'success_url', 'value' => Mage::getUrl('mondido/standard/success')));
         $form->addField('error_url', 'hidden', array('name'=>'error_url', 'value' => Mage::getUrl('mondido/standard/cancel')));
-        $form->addField('test', 'hidden', array('name'=>'test', 'value' => $fields['status']));
+        $form->addField('test', 'hidden', array('name'=>'test', 'value' => $fields['test']));
         $form->addField('metadata', 'hidden', array('name'=>'metadata', 'value' => $metadata));
         $idSuffix = Mage::helper('core')->uniqHash();
         $submitButton = new Varien_Data_Form_Element_Submit(array(

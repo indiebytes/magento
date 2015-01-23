@@ -98,12 +98,9 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
 //		$amount = $order->getGrandTotal() - $order->getShippingAmount();
         $amount = $order->getGrandTotal();
         $amount = number_format($amount, 2, '.', '');
-
         $serect = trim(Mage::getStoreConfig('payment/mondido/merchant_serect',Mage::app()->getStore()));
         $merchant_id = trim(Mage::getStoreConfig('payment/mondido/merchant_id',Mage::app()->getStore()));
         $test = Mage::getStoreConfig('payment/mondido/test_mode',Mage::app()->getStore());
-        $test_mode = false;
-        if($test == 1) $test_mode = true;
         $currency = $order->getOrderCurrencyCode();
 
         //Generate hash
@@ -112,25 +109,64 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
             . $customer_id 
             . $amount 
             . strtolower($currency) 
-            . ($test_mode ? "test" : "")
+            . (($test==1) ? "test" : "")
             . $serect;
 
         $hash = md5($str);
 
+        // Meta Data
         $metadata = array();
 
-
-        $customer = Mage::getSingleton('customer/session')->getCustomer();
-        $cust = Mage::getModel('customer/customer')->load($customer->getId());
-        $customerData = $cust->getData();
-        $customerAddresses = $cust->getAddresses();
-        $customerAddress = "";
-        if(count($customerAddresses) > 0){
-            $customerAddress = array_shift(array_values($customerAddresses))->getData();
-        }
-        $customer = array("entity_id" => $customerData["entity_id"], "website_id" => $customerData["website_id"], "email" => $customerData["email"], "firstname" => $customerData["firstname"], "lastname" => $customerData["lastname"], "address" => $customerAddress);
-        $metadata['customer'] = $customer;
+        // Order Data
         $metadata['order'] = $order->getData();
+
+        // Client Data
+        if($metadata["order"]["customer_is_guest"] == "1"){
+            $customer = array(
+                "email" => $metadata["order"]["customer_email"],
+                "firstname" => $metadata["order"]["customer_firstname"],
+                "middlename" => $metadata["order"]["customer_middlename"],
+                "lastname" => $metadata["order"]["customer_lastname"],
+                "gender" => $metadata["order"]["customer_gender"],
+                "address" => array(
+                    "shipping" => Mage::getModel('sales/order_address')->load(
+                        $metadata["order"]["shipping_address_id"]
+                    ),
+                    "billing" => Mage::getModel('sales/order_address')->load(
+                        $metadata["order"]["billing_address_id"]
+                    )
+                ),
+            );
+        } else {
+            $customer = Mage::getSingleton('customer/session')->getCustomer();
+            $cust = Mage::getModel('customer/customer')->load($customer->getId());
+
+            $customerAddresses = array();
+            foreach($cust->getAddresses() as $address){
+                $customerAddresses[] = $address->toArray();
+            }
+
+            $customerData = $cust->getData();
+            $customer = array(
+                "entity_id" => $customerData["entity_id"],
+                "website_id" => $customerData["website_id"],
+                "email" => $customerData["email"],
+                "firstname" => $customerData["firstname"],
+                "lastname" => $customerData["lastname"],
+                "address" => array(
+                    "shipping" => Mage::getModel('sales/order_address')->load(
+                        $metadata["order"]["shipping_address_id"]
+                    ),
+                    "billing" => Mage::getModel('sales/order_address')->load(
+                        $metadata["order"]["billing_address_id"]
+                    ),
+                    "all" => $customerAddresses
+                )
+            );
+        }
+        $metadata['customer'] = $customer;
+
+        // Products Data
         $prods = array();
         $orderItems = $order->getItemsCollection();
         foreach($orderItems as $sItem) {
@@ -148,7 +184,7 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
             'currency' => $currency,
             'secret' => $serect,
             'hash' => $hash,
-            'test' => $test_mode,
+            'test' => (($test == 1) ? "true" : "false"),
             'metadata' => $metadata
         );
         return $data;
