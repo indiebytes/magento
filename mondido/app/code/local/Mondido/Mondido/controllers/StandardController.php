@@ -80,7 +80,7 @@ class Mondido_Mondido_StandardController extends Mage_Core_Controller_Front_Acti
                 }
                 Mage::helper('mondido/data')->restoreQuote();
             }
-//        $this->_redirect('checkout/cart');
+
             Mage::getSingleton('core/session')->addError($error);
             $this->_redirect('checkout/onepage/failure', array('_secure'=>true));
         }
@@ -108,7 +108,6 @@ class Mondido_Mondido_StandardController extends Mage_Core_Controller_Front_Acti
                 $order = Mage::getModel('sales/order')
                     ->loadByIncrementId($order_id)
                     ->addStatusToHistory(Mage_Sales_Model_Order::STATE_COMPLETE, 'Transaction ID: ' . $transaction_id)
-                  //->setData('state', Mage_Sales_Model_Order::STATE_COMPLETE)
                     ->save();
 
                 $session = Mage::getSingleton('checkout/session');

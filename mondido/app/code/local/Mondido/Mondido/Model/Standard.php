@@ -98,7 +98,7 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
         $secret = trim(Mage::getStoreConfig('payment/mondido/merchant_serect',Mage::app()->getStore()));
         $merchant_id = trim(Mage::getStoreConfig('payment/mondido/merchant_id',Mage::app()->getStore()));
         $test = Mage::getStoreConfig('payment/mondido/test_mode',Mage::app()->getStore());
-        $hash_algorithm = Mage::getStoreConfig('payment/mondido/hash_algorithm',Mage::app()->getStore());
+        $hash_algorithm = "md5";
         $currency = strtolower($order->getOrderCurrencyCode());
 
         // Generate hash
@@ -158,7 +158,6 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
             'currency' => $currency,
             'secret' => $secret,
             'hash' => $hash,
-            'hash_algorithm' => $hash_algorithm,
             'test' => (($test == 1) ? "true" : "false"),
             'metadata' => $metadata
         );
