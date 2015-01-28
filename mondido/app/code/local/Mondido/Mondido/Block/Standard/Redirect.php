@@ -25,6 +25,7 @@ class Mondido_Mondido_Block_Standard_Redirect extends Mage_Core_Block_Abstract
         $form->addField('error_url', 'hidden', array('name'=>'error_url', 'value' => Mage::getUrl('mondido/standard/cancel')));
         $form->addField('test', 'hidden', array('name'=>'test', 'value' => $fields['test']));
         $form->addField('metadata', 'hidden', array('name'=>'metadata', 'value' => $metadata));
+        //$form->addField('hash_algorithm', 'hidden', array('name'=>'hash_algorithm', 'value' => $hash_algorithm));
         $idSuffix = Mage::helper('core')->uniqHash();
         $submitButton = new Varien_Data_Form_Element_Submit(array(
             'value'    => $this->__('Click here if you are not redirected within 10 seconds...'),

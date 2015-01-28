@@ -39,22 +39,22 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </title>
-                        <merchant_id translate="label">
-                            <label>Merchant ID</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>3</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </merchant_id>
-                        <merchant_serect translate="label">
+                        <merchant_secret translate="label">
                             <label>Merchant Secret</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </merchant_serect>
+                        </merchant_secret>
+                        <hash_algorithm translate="label">
+                            <label>Hash Algorithm</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hash_algorithm>
                         <test_mode translate="label">
                             <label>Test Mode</label>
                             <frontend_type>select</frontend_type>
@@ -64,6 +64,22 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </test_mode>
+                        <checkout_image_url translate="label">
+                            <label>Checkout Image URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </checkout_image_url>
+                        <checkout_text translate="label">
+                            <label>Checkout Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </checkout_text>
                     </fields>
                 </mondido>
             </groups>

@@ -20,17 +20,15 @@ class Mondido_Mondido_Block_Standard_Form extends Mage_Payment_Block_Form
      */
     protected function _construct()
     {
-        $locale = Mage::app()->getLocale();
+        //$locale = Mage::app()->getLocale();
+
         $mark = Mage::getConfig()->getBlockClassName('core/template');
         $mark = new $mark;
         $mark->setTemplate('mondido/payment/mark.phtml');
         $this->setTemplate('mondido/payment/redirect.phtml')
-            ->setRedirectMessage(
-                Mage::helper('mondido')->__('You will be redirected to the Mondido website when you place an order.')
-            )
             ->setMethodTitle('') // Output Mondido mark, omit title
-            ->setMethodLabelAfterHtml($mark->toHtml())
-        ;
+            ->setMethodLabelAfterHtml($mark->toHtml());
+
         return parent::_construct();
     }
 }
