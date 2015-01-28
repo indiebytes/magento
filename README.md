@@ -42,7 +42,7 @@ In order to make the module "LIVE", follow the instructions below:
 
       4.4.3 If you fill the image and the text fields, there will be two "&lt;br/&gt;" (break line tags)  between them, as shown above.  
 
-5. Click "Save Config"  
+5. Click "Save Config" in the top right corner of the screen
     ![Save Settings](/installation_screenshots/save_config.png?raw=true)  
 
 You may want to disable caching if you run into troubleshooting during the installation.  
