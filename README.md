@@ -29,7 +29,7 @@ In order to make the module "LIVE", follow the instructions below:
     4.1 In "Enabled", select "Yes"   
     4.2 In "Merchant ID", type your merchant ID, e.g., 140  
     4.3 In "Merchant Secret", type your secret for hash generation, e.g., $2b$30$fAJfajudaojJFSUI  
-    4.4 In "Checkout Image URL", type the URL of the image to appear in the Payment Information Checkout Step
+    4.4 In "Checkout Image URL", type the URL of the image to appear in the Payment Information Checkout Step  
     4.5 In "Checkout Text", type the text to appear in the Payment Information Checkout Step   
 5. Click "Save Config"
 
