@@ -36,11 +36,11 @@ In order to make the module "LIVE", follow the instructions below:
     4.4 In "Checkout Image URL" and "Checkout Text" will appear in this checkout page:
         ![Checkout](/installation_screenshots/checkout.png?raw=true)  
 
-        4.4.1 The Image URL and the text are optional, but you need to fill at least one. Otherwise the Mondido Payment Information will be empty.  
+      4.4.1 The Image URL and the text are optional, but you need to fill at least one. Otherwise the Mondido Payment Information will be empty.  
 
-        4.4.2 The text accepts HTML code if you want to customize.  
+      4.4.2 The text accepts HTML code if you want to customize.  
 
-        4.4.3 If you fill the image and the text, there will be two "<br/>" (break line tag)  between them, as shown above.  
+      4.4.3 If you fill the image and the text, there will be two "<br/>" (break line tag)  between them, as shown above.  
 
 5. Click "Save Config"
     ![Save Settings](/installation_screenshots/save_config.png?raw=true)
