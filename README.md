@@ -33,14 +33,14 @@ In order to make the module "LIVE", follow the instructions below:
     4.1 In "Enabled", select "Yes"   
     4.2 In "Merchant ID", type your merchant ID, e.g., 140  
     4.3 In "Merchant Secret", type your secret for hash generation, e.g., $2b$30$fAJfajudaojJFSUI  
-    4.4 In "Checkout Image URL" and "Checkout Text" will appear in this checkout page:
+    4.4 In "Checkout Image URL" and "Checkout Text" will appear in this checkout page:  
         ![Checkout](/installation_screenshots/checkout.png?raw=true)  
 
       4.4.1 The Image URL and the text are optional, but you need to fill at least one. Otherwise the Mondido Payment Information will be empty.  
 
       4.4.2 The text accepts HTML code if you want to customize.  
 
-      4.4.3 If you fill the image and the text, there will be two "&gt;br/&lt;" (break line tags)  between them, as shown above.  
+      4.4.3 If you fill the image and the text fields, there will be two "&lt;br/&gt;" (break line tags)  between them, as shown above.  
 
 5. Click "Save Config"  
     ![Save Settings](/installation_screenshots/save_config.png?raw=true)  
