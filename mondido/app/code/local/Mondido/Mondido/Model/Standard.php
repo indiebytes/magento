@@ -9,7 +9,7 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
     protected $_isGateway = true;
     protected $_formBlockType = 'mondido/standard_form';
     protected $_infoBlockType = 'mondido/payment_info';
-    protected $_isInitializeNeeded       = true;
+    protected $_isInitializeNeeded      = true;
     protected $_canUseInternal          = false;
     protected $_canUseForMultishipping  = false;
     protected $paymentAction  = 'Sale';
@@ -88,66 +88,78 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
     /*
 	 * Generate mondido data
 	 */
-    function generate_mondido_data($order_id, $callback = false, $status = "") {
+    public function generate_mondido_data($order_id, $callback = false, $status = "") {
         //Get Order Information
         $order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
 
         $customer_id = $order->getCustomerId();
-//		$orderSymbolCode = Mage::app()->getLocale()->currency($order->getOrderCurrencyCode())->getSymbol();
-
-//		$amount = $order->getGrandTotal() - $order->getShippingAmount();
         $amount = $order->getGrandTotal();
         $amount = number_format($amount, 2, '.', '');
-
-        $serect = trim(Mage::getStoreConfig('payment/mondido/merchant_serect',Mage::app()->getStore()));
+        $secret = trim(Mage::getStoreConfig('payment/mondido/merchant_serect',Mage::app()->getStore()));
         $merchant_id = trim(Mage::getStoreConfig('payment/mondido/merchant_id',Mage::app()->getStore()));
         $test = Mage::getStoreConfig('payment/mondido/test_mode',Mage::app()->getStore());
-        $test_mode = false;
-        if($test == 1) $test_mode = true;
-        $currency = $order->getOrderCurrencyCode();
+        $hash_algorithm = "md5";
+        $currency = strtolower($order->getOrderCurrencyCode());
 
-        //Getnerate hash
-        if ($callback) {
-            $str = "" . $merchant_id . "" . $order_id . "" . $customer_id . "" . $amount . "" . strtolower($currency) . "" . strtolower($status) . "" . $serect . "";
-        } else {
-            $str = "" . $merchant_id . "" . $order_id . "" . $customer_id . "" . $amount . "" . $serect . "";
-        }
-        $hash = md5($str);
+        // Generate hash
+        $str = $merchant_id 
+            . $order_id 
+            . $customer_id 
+            . $amount 
+            . $currency
+            . $status
+            . (($test==1 and $status=="") ? "test" : "")
+            . $secret;
 
+        $hash = $hash_algorithm($str);
+
+        // Meta Data
         $metadata = array();
 
-
-        $customer = Mage::getSingleton('customer/session')->getCustomer();
-        $cust = Mage::getModel('customer/customer')->load($customer->getId());
-        $customerData = $cust->getData();
-        $customerAddresses = $cust->getAddresses();
-        $customerAddress = "";
-        if(count($customerAddresses) > 0){
-            $customerAddress = array_shift(array_values($customerAddresses))->getData();
-        }
-        $customer = array("entity_id" => $customerData["entity_id"], "website_id" => $customerData["website_id"], "email" => $customerData["email"], "firstname" => $customerData["firstname"], "lastname" => $customerData["lastname"], "address" => $customerAddress);
-        $metadata['customer'] = $customer;
+        // Order Data
         $metadata['order'] = $order->getData();
+
+        // Customer Data
+        $metadata['customer'] = array(
+            "id" => $customer_id,
+            "guest" => $metadata["order"]["customer_is_guest"],
+            "email" => $metadata["order"]["customer_email"],
+            "firstname" => $metadata["order"]["customer_firstname"],
+            "middlename" => $metadata["order"]["customer_middlename"],
+            "lastname" => $metadata["order"]["customer_lastname"],
+            "gender" => $metadata["order"]["customer_gender"],
+            "address" => array(
+                "shipping" => Mage::getModel('sales/order_address')->load(
+                    $metadata["order"]["shipping_address_id"]
+                ),
+                "billing" => Mage::getModel('sales/order_address')->load(
+                    $metadata["order"]["billing_address_id"]
+                )
+            ),
+        );
+
+        // Products Data
         $prods = array();
         $orderItems = $order->getItemsCollection();
         foreach($orderItems as $sItem) {
-            $nProduct = Mage::getModel('catalog/product')->load($sItem->getProductId());
+            $nProduct = Mage::getModel('catalog/product')->load(
+                $sItem->getProductId()
+            );
             array_push($prods,$nProduct->getData());
         }
         $metadata['products'] = $prods;
 
         //Return Data
-        $data = array(
+        return array(
             'merchant_id' => $merchant_id,
             'payment_ref' => $order_id,
-            'customer_ref' =>$customer_id,
+            'customer_ref' => $customer_id,
             'amount' => $amount,
             'currency' => $currency,
-            'secret' => $serect,
+            'secret' => $secret,
             'hash' => $hash,
-            'test' => $test_mode,
+            'test' => (($test == 1) ? "true" : "false"),
             'metadata' => $metadata
         );
-        return $data;
     }
 }

@@ -80,7 +80,7 @@ class Mondido_Mondido_StandardController extends Mage_Core_Controller_Front_Acti
                 }
                 Mage::helper('mondido/data')->restoreQuote();
             }
-//        $this->_redirect('checkout/cart');
+
             Mage::getSingleton('core/session')->addError($error);
             $this->_redirect('checkout/onepage/failure', array('_secure'=>true));
         }
@@ -93,24 +93,40 @@ class Mondido_Mondido_StandardController extends Mage_Core_Controller_Front_Acti
      */
     public function successAction()
     {
+
         $standard = Mage::getModel('mondido/standard');
-        $order_id = $_GET['payment_ref'];
-        $status = $_GET['status'];
-        $hash_return = $_GET['hash'];
+        $params = $this->getRequest()->getParams();
+        $transaction_id = $params['transaction_id'];
+        $order_id = $params['payment_ref'];
+        $status = $params['status'];
+        $hash_return = $params['hash'];
 
         if($status == 'approved') {
             $data = $standard->generate_mondido_data($order_id, true, $status);
+
             if($hash_return == $data['hash']) {
-                $order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
-                $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_COMPLETE, 'Transaction ID: ' . $_GET['transaction_id']);
-//                $order->setData('state', Mage_Sales_Model_Order::STATE_COMPLETE);
-                $order->save();
+                $order = Mage::getModel('sales/order')
+                    ->loadByIncrementId($order_id)
+                    ->addStatusToHistory(Mage_Sales_Model_Order::STATE_COMPLETE, 'Transaction ID: ' . $transaction_id)
+                    ->save();
 
                 $session = Mage::getSingleton('checkout/session');
-                $session->setQuoteId($session->getMondidoQuoteId(true));
-                Mage::getSingleton('checkout/session')->getQuote()->setIsActive(false)->save();
+                $session->setQuoteId(
+                    $session->getMondidoQuoteId(true)
+                );
+
+                Mage::getSingleton('checkout/session')
+                    ->getQuote()
+                    ->setIsActive(false)
+                    ->save();
+
                 $this->_redirect('checkout/onepage/success', array('_secure'=>true));
+            } else {
+                // Invalid Hash
+                die("Invalid parameters.");
             }
         }
+
+
     }
 }
