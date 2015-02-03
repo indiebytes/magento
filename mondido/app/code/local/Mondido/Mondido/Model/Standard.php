@@ -145,7 +145,10 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
             $nProduct = Mage::getModel('catalog/product')->load(
                 $sItem->getProductId()
             );
-            array_push($prods,$nProduct->getData());
+           $prod_arr = $nProduct->getData();
+           $prod_arr['product_extra_description'] = '';
+
+            array_push($prods,$prod_arr);
         }
         $metadata['products'] = $prods;
 
