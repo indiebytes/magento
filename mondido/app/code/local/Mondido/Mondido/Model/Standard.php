@@ -95,7 +95,7 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
         $customer_id = $order->getCustomerId();
         $amount = $order->getGrandTotal();
         $amount = number_format($amount, 2, '.', '');
-        $secret = trim(Mage::getStoreConfig('payment/mondido/merchant_serect',Mage::app()->getStore()));
+        $secret = trim(Mage::getStoreConfig('payment/mondido/merchant_secret',Mage::app()->getStore()));
         $merchant_id = trim(Mage::getStoreConfig('payment/mondido/merchant_id',Mage::app()->getStore()));
         $test = Mage::getStoreConfig('payment/mondido/test_mode',Mage::app()->getStore());
         $hash_algorithm = "md5";

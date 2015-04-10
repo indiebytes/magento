@@ -2,7 +2,7 @@ magento
 =======
 
 Mondido Payments plugin for Magento  
-Version 1.2  
+Version 1.3  
 
 **Instructions**
 

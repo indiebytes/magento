@@ -101,14 +101,16 @@ class Mondido_Mondido_StandardController extends Mage_Core_Controller_Front_Acti
         $status = $params['status'];
         $hash_return = $params['hash'];
 
-        if($status == 'approved') {
+        if(in_array($status, array('approved','pending'))) {
             $data = $standard->generate_mondido_data($order_id, true, $status);
 
             if($hash_return == $data['hash']) {
-                $order = Mage::getModel('sales/order')
-                    ->loadByIncrementId($order_id)
-                    ->addStatusToHistory(Mage_Sales_Model_Order::STATE_COMPLETE, 'Transaction ID: ' . $transaction_id)
-                    ->save();
+                if($status == 'approved'){
+                    $order = Mage::getModel('sales/order')
+                        ->loadByIncrementId($order_id)
+                        ->addStatusToHistory(Mage_Sales_Model_Order::STATE_COMPLETE, 'Transaction ID: ' . $transaction_id)
+                        ->save();
+                }
 
                 $session = Mage::getSingleton('checkout/session');
                 $session->setQuoteId(
