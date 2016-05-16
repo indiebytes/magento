@@ -120,15 +120,12 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
             . $secret;
             
         $redirect_hash = $hash_algorithm($rh);
-
         $items = array();
-
         // Meta Data
         $metadata = array();
 
         // Order Data
         $metadata['order'] = $order->getData();
-
         $baddr = Mage::getModel('sales/order_address')->load($metadata["order"]["billing_address_id"]);
         $country = Mage::getModel('directory/country')->loadByCode($baddr->getCountry());
         

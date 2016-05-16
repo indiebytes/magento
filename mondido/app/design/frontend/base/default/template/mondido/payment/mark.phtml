@@ -1,3 +1,21 @@
-<!-- Mondido Logo -->
-Mondido Payment
-<!-- Mondido Logo -->
+<?php
+	$image = Mage::getStoreConfig(
+		'payment/mondido/checkout_image_url',
+		Mage::app()->getStore()
+	);
+
+	$text = Mage::getStoreConfig(
+		'payment/mondido/checkout_text',
+		Mage::app()->getStore()
+	);
+
+	if($image)
+		echo '<img src="' . $image . '" alt="" />';
+
+	if($text){
+		if($image)
+			echo '<br/><br/>';
+
+		echo $text;
+	}
+?>
