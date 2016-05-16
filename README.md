@@ -2,7 +2,7 @@ magento
 =======
 
 Mondido Payments plugin for Magento  
-Version 1.3  
+Version 1.4  
 
 **Instructions**
 
@@ -20,9 +20,11 @@ cp -a $mondido_dir/mondido/* $magento_dir
 rm -rf $mondido_dir
 ```
 
+Create a script file and paste the bash script above
+
 In order to make the module "LIVE", follow the instructions below:  
 
-1. Login to the Magento Administrator console  
+1. Login to the Magento Administrator console, and clear all cache.  
 2. Using the main menu, navigate to System > Configuration  
     ![System Configuration](/installation_screenshots/system_configuration.png?raw=true)  
 3. Using the left menu, navigate to Sales > Payment Methods  

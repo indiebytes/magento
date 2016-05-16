@@ -3,7 +3,7 @@
     <modules>
         <Mondido_Mondido>
             <!-- declare module's version information for database updates -->
-            <version>1.3.0</version>
+            <version>1.4.0</version>
         </Mondido_Mondido>
     </modules>
 
