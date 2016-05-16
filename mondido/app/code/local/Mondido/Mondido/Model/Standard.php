@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Our test CC module adapter
  */
@@ -9,7 +8,7 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
     protected $_isGateway = true;
     protected $_formBlockType = 'mondido/standard_form';
     protected $_infoBlockType = 'mondido/payment_info';
-    protected $_isInitializeNeeded       = true;
+    protected $_isInitializeNeeded      = true;
     protected $_canUseInternal          = false;
     protected $_canUseForMultishipping  = false;
     protected $paymentAction  = 'Sale';
@@ -88,66 +87,128 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
     /*
 	 * Generate mondido data
 	 */
-    function generate_mondido_data($order_id, $callback = false, $status = "") {
+    public function generate_mondido_data($order_id, $callback = false, $status = "") {
         //Get Order Information
         $order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
 
         $customer_id = $order->getCustomerId();
-//		$orderSymbolCode = Mage::app()->getLocale()->currency($order->getOrderCurrencyCode())->getSymbol();
-
-//		$amount = $order->getGrandTotal() - $order->getShippingAmount();
         $amount = $order->getGrandTotal();
         $amount = number_format($amount, 2, '.', '');
-
-        $serect = trim(Mage::getStoreConfig('payment/mondido/merchant_serect',Mage::app()->getStore()));
+        $secret = trim(Mage::getStoreConfig('payment/mondido/merchant_secret',Mage::app()->getStore()));
         $merchant_id = trim(Mage::getStoreConfig('payment/mondido/merchant_id',Mage::app()->getStore()));
         $test = Mage::getStoreConfig('payment/mondido/test_mode',Mage::app()->getStore());
-        $test_mode = false;
-        if($test == 1) $test_mode = true;
-        $currency = $order->getOrderCurrencyCode();
+        $hash_algorithm = "md5";
+        $currency = strtolower($order->getOrderCurrencyCode());
 
-        //Getnerate hash
-        if ($callback) {
-            $str = "" . $merchant_id . "" . $order_id . "" . $customer_id . "" . $amount . "" . strtolower($currency) . "" . strtolower($status) . "" . $serect . "";
-        } else {
-            $str = "" . $merchant_id . "" . $order_id . "" . $customer_id . "" . $amount . "" . $serect . "";
-        }
-        $hash = md5($str);
+        // Generate hash
+        $str = $merchant_id 
+            . $order_id 
+            . $customer_id 
+            . $amount 
+            . $currency
+            . $status
+            . (($test==1 and $status=="") ? "test" : "")
+            . $secret;
 
+        $hash = $hash_algorithm($str);
+        $rh = $merchant_id 
+            . $order_id
+            . $customer_id
+            . $amount 
+            . $currency
+            . $status
+            . $secret;
+            
+        $redirect_hash = $hash_algorithm($rh);
+
+        $items = array();
+
+        // Meta Data
         $metadata = array();
 
-
-        $customer = Mage::getSingleton('customer/session')->getCustomer();
-        $cust = Mage::getModel('customer/customer')->load($customer->getId());
-        $customerData = $cust->getData();
-        $customerAddresses = $cust->getAddresses();
-        $customerAddress = "";
-        if(count($customerAddresses) > 0){
-            $customerAddress = array_shift(array_values($customerAddresses))->getData();
-        }
-        $customer = array("entity_id" => $customerData["entity_id"], "website_id" => $customerData["website_id"], "email" => $customerData["email"], "firstname" => $customerData["firstname"], "lastname" => $customerData["lastname"], "address" => $customerAddress);
-        $metadata['customer'] = $customer;
+        // Order Data
         $metadata['order'] = $order->getData();
+
+        $baddr = Mage::getModel('sales/order_address')->load($metadata["order"]["billing_address_id"]);
+        $country = Mage::getModel('directory/country')->loadByCode($baddr->getCountry());
+        
+        $saddr =  Mage::getModel('sales/order_address')->load($metadata["order"]["shipping_address_id"]);
+        // Customer Data
+        $metadata['customer'] = array(
+            "id" => $customer_id,
+            "guest" => $metadata["order"]["customer_is_guest"],
+            "email" => $metadata["order"]["customer_email"],
+            "firstname" => $metadata["order"]["customer_firstname"],
+            "middlename" => $metadata["order"]["customer_middlename"],
+            "country" => $country->getName(),
+            "lastname" => $metadata["order"]["customer_lastname"],
+            "gender" => $metadata["order"]["customer_gender"],
+            "address" => array(
+                "shipping" => $saddr->getData(),
+                "billing" => $baddr->getData()
+            )
+        );
+
+        // Products Data
         $prods = array();
         $orderItems = $order->getItemsCollection();
         foreach($orderItems as $sItem) {
-            $nProduct = Mage::getModel('catalog/product')->load($sItem->getProductId());
-            array_push($prods,$nProduct->getData());
+            $nProduct = Mage::getModel('catalog/product')->load(
+                $sItem->getProductId()
+            );
+            
+            $store = Mage::app()->getStore('default');
+            $taxCalculation = Mage::getModel('tax/calculation');
+            $request = $taxCalculation->getRateRequest(null, null, null, $store);
+            $taxClassId = $nProduct->getTaxClassId();
+            $percent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
+            $prc = $percent / 100;
+            
+            
+           $prod_arr = $nProduct->getData();
+           $prod_arr['product_extra_description'] = '';
+           $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $nProduct->getImage();
+           $prod_arr['image'] = $imageUrl;
+           
+           $_priceTax = Mage::helper('tax')->getPrice( $sItem, $sItem->getPrice());
+           $_specialPriceIncTax = $_priceTax *  (1+ $prc);
+           $qty = $sItem->getQtyOrdered();
+           $tot_amount = $qty * $_specialPriceIncTax;
+           
+           $item = array(
+               'artno' => $prod_arr['sku'],
+               'description' => $prod_arr['name'],
+               'amount' => $tot_amount,
+               'qty' => $qty ,
+               'vat' => $percent,
+               'discount' => '0.00');
+            
+           array_push($prods, $prod_arr);
+           array_push($items, $item);
         }
+        $item = array(
+               'artno' => 'shipping',
+               'description' => 'Shipping',
+               'amount' => $order['base_shipping_amount'],
+               'qty' => 1,
+               'vat' => '0.00',
+               'discount' => '0.00');
+        array_push($items, $item);
         $metadata['products'] = $prods;
 
         //Return Data
-        $data = array(
+        return array(
             'merchant_id' => $merchant_id,
             'payment_ref' => $order_id,
-            'customer_ref' =>$customer_id,
+            'customer_ref' => $customer_id,
             'amount' => $amount,
             'currency' => $currency,
-            'secret' => $serect,
+            'secret' => $secret,
             'hash' => $hash,
-            'test' => $test_mode,
-            'metadata' => $metadata
+            'test' => (($test == 1) ? "true" : "false"),
+            'metadata' => $metadata,
+            'redirect_hash' => $redirect_hash,
+            'items' => $items
         );
-        return $data;
     }
 }
