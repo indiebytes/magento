@@ -135,7 +135,7 @@ class Mondido_Mondido_Model_Standard extends Mage_Payment_Model_Method_Abstract
         $saddr =  Mage::getModel('sales/order_address')->load($metadata["order"]["shipping_address_id"]);
         // Customer Data
         $platform = array();
-        $platform["type"] = "wocoomerce";
+        $platform["type"] = "magento";
         $platform["version"] = Mage::getVersion();
         $platform["language_version"] = phpversion();
         $platform["plugin_version"] = '1.5.1';
